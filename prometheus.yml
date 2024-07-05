@@ -1,0 +1,18 @@
+# Configurações globais aplicadas a todas as configurações de raspagem (scrape).
+global:
+  # Intervalo de raspagem global. Define com que frequência o Prometheus coleta métricas.
+  scrape_interval: 5s
+scrape_configs:
+  # Configurações para o job chamado 'prometheus'.
+  - job_name: 'prometheus'
+    # Configuração estática para definir os alvos (targets) para raspagem.
+    static_configs:
+      # Lista de alvos para o job 'prometheus'. Neste caso, o Prometheus está sendo raspado em 'prometheus:9090'.
+      - targets: ['prometheus:9090']
+
+  # Configurações para o job chamado 'node-exporter'.
+  - job_name: 'node-exporter'
+    # Configuração estática para definir os alvos (targets) para raspagem.
+    static_configs:
+      # Lista de alvos para o job 'node-exporter'. Aqui, o node-exporter está sendo raspado em 'node-exporter:9100'.
+      - targets: ['node-exporter:9100']

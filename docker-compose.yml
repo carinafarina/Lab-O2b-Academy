@@ -1,0 +1,29 @@
+# Versão do Docker Compose
+version: '3'
+
+# Definição dos serviços
+services:
+  # Serviço para o Prometheus
+  prometheus:
+    # Imagem a ser utilizada para o serviço Prometheus
+    image: prom/prometheus
+    # Mapeamento de portas - o Prometheus estará acessível na porta 9090 do host
+    ports:
+      - 9091:9091
+    # Mapeamento de volumes - vincula o arquivo prometheus.yml local ao caminho no contêiner
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    # Comando a ser executado pelo contêiner, especificando o arquivo de configuração
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    # Dependência do serviço node-exporter - o Prometheus inicia após o node-exporter
+    depends_on:
+      - node-exporter
+
+  # Serviço para o Node Exporter
+  node-exporter:
+    # Imagem a ser utilizada para o serviço Node Exporter
+    image: prom/node-exporter
+    # Mapeamento de portas - o Node Exporter estará acessível na porta 9100 do host
+    ports:
+      - 9100:9100
