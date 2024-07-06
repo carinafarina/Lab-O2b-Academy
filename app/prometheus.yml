@@ -7,12 +7,19 @@ scrape_configs:
   - job_name: 'prometheus'
     # Configuração estática para definir os alvos (targets) para raspagem.
     static_configs:
-      # Lista de alvos para o job 'prometheus'. Neste caso, o Prometheus está sendo raspado em 'prometheus:9090'.
-      - targets: ['prometheus:9091']
+      # Ajusta o target para eviter problemas de rede, buscando pelo endereço IP
+      - targets: ['<ip_do_seu_host>:9090']
 
   # Configurações para o job chamado 'node-exporter'.
   - job_name: 'node-exporter'
     # Configuração estática para definir os alvos (targets) para raspagem.
     static_configs:
       # Lista de alvos para o job 'node-exporter'. Aqui, o node-exporter está sendo raspado em 'node-exporter:9100'.
-      - targets: ['node-exporter:9100']
+      - targets: ['<ip_do_seu_host>:9100']`
+  
+  # Configurações para o job chamado 'simple_server'.
+  - job_name: 'simple_server'
+    # Configuração estática para definir os alvos (targets) para raspagem.
+    static_configs:
+      # Lista de alvos para o job 'node-exporter'. Aqui, o node-exporter está sendo raspado em 'node-exporter:9100'.
+      - targets: ['<ip_do_seu_host>:8090']`
