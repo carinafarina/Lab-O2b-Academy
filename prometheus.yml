@@ -8,7 +8,7 @@ scrape_configs:
     # Configuração estática para definir os alvos (targets) para raspagem.
     static_configs:
       # Lista de alvos para o job 'prometheus'. Neste caso, o Prometheus está sendo raspado em 'prometheus:9090'.
-      - targets: ['prometheus:9090']
+      - targets: ['prometheus:9091']
 
   # Configurações para o job chamado 'node-exporter'.
   - job_name: 'node-exporter'
