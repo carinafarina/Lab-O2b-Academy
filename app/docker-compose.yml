@@ -1,5 +1,3 @@
-# Versão do Docker Compose
-#version: '3'
 
 # Definição dos serviços
 services:
@@ -9,7 +7,7 @@ services:
     image: prom/prometheus
     # Mapeamento de portas - o Prometheus estará acessível na porta 9090 do host
     ports:
-      - 9092:9090
+      - 9094:9094
     # Mapeamento de volumes - vincula o arquivo prometheus.yml local ao caminho no contêiner
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
@@ -17,3 +15,32 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     
+
+  # Serviço para o Node Exporter
+  node-exporter:
+    # Imagem a ser utilizada para o serviço Node Exporter
+    image: prom/node-exporter
+    # Mapeamento de portas - o Node Exporter estará acessível na porta 9100 do host
+    ports:
+      - 9101:9100
+
+  # Serviço para o Grafana
+  grafana:
+    # Imagem a ser utilizada para o serviço Grafana
+    image: grafana/grafana
+    # Mapeamento de portas - o Grafana estará acessível na porta 3000 do host
+    ports:
+      - 3000:3000
+
+  # Serviço do Alertmanager
+  alertmanager:
+    # Nome do contêiner para o Alertmanager
+    container_name: alertmanager
+    # Imagem a ser utilizada para o serviço Alertmanager
+    image: prom/alertmanager
+    # Mapeamento de volumes - vincula o arquivo alertmanager.yml local ao caminho no contêiner
+    #volumes:
+     # - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    # Mapeamento de portas - o Alertmanager estará acessível na porta 9093 do host
+    ports:
+      - 9093:9093

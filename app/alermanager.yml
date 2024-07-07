@@ -1,0 +1,20 @@
+# Configurações globais aplicadas a todo o arquivo de configuração do Alertmanager.
+global:
+  # Define o tempo limite para resolução de alertas como 5 minutos.
+  resolve_timeout: 5m
+
+# Configurações de roteamento de alertas.
+route:
+  # Define o destinatário padrão para alertas como "webhook_receiver".
+  receiver: webhook_receiver
+
+# Configurações dos receptores de alertas.
+receivers:
+  # Configuração do receptor "webhook_receiver".
+  - name: webhook_receiver
+    # Configuração específica para o tipo de receptor "webhook_configs".
+    webhook_configs:
+      # URL do webhook onde os alertas serão enviados. Substitua '<INSERT-YOUR-WEBHOOK>' pela URL real.
+      #- url: '<INSERT-YOUR-WEBHOOK>'
+        # Define se os alertas resolvidos também devem ser enviados para o webhook. Neste caso, definido como falso.
+        send_resolved: false

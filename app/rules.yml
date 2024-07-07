@@ -1,0 +1,12 @@
+# Lista de grupos de regras no arquivo rules.yml.
+groups:
+  # Definição do primeiro grupo de regras com o nome "Count greater than 5".
+  - name: Count greater than 5
+    # Lista de regras dentro deste grupo.
+    rules:
+      # Definição da primeira regra no grupo.
+      - alert: CountGreaterThan5
+        # Expressão da regra: alerta se o valor da métrica 'ping_request_count' for maior que 5.
+        expr: ping_request_count > 5
+        # Tempo pelo qual a condição da regra deve persistir antes de disparar um alerta.
+        for: 10s

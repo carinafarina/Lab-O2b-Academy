@@ -1,25 +1,32 @@
-# Configurações globais aplicadas a todas as configurações de raspagem (scrape).
+# Configurações globais aplicadas a todo o arquivo de configuração do Prometheus.
 global:
   # Intervalo de raspagem global. Define com que frequência o Prometheus coleta métricas.
   scrape_interval: 5s
+  # Intervalo de avaliação global. Define com que frequência as regras de alerta são avaliadas.
+  evaluation_interval: 10s
+  # Lista de arquivos de regras a serem carregados.
+rule_files:
+  - rules.yml
+
+# Configurações de alerta.
+alerting:
+  # Lista de configurações de Alertmanager.
+  alertmanagers:
+    - static_configs:
+      # Configurações estáticas para o Alertmanager, definindo os alvos para envio de alertas.
+      - targets:
+        - localhost:9093
+
+# Configurações de raspagem (scrape).
 scrape_configs:
   # Configurações para o job chamado 'prometheus'.
-  - job_name: 'prometheus'
+  - job_name: prometheus
     # Configuração estática para definir os alvos (targets) para raspagem.
     static_configs:
-      # Ajusta o target para eviter problemas de rede, buscando pelo endereço IP
-      - targets: ['<ip_do_seu_host>:9090']
+      - targets: ["localhost:9090"]
 
-  # Configurações para o job chamado 'node-exporter'.
-  - job_name: 'node-exporter'
-    # Configuração estática para definir os alvos (targets) para raspagem.
-    static_configs:
-      # Lista de alvos para o job 'node-exporter'. Aqui, o node-exporter está sendo raspado em 'node-exporter:9100'.
-      - targets: ['<ip_do_seu_host>:9100']`
-  
   # Configurações para o job chamado 'simple_server'.
-  - job_name: 'simple_server'
+  - job_name: simple_server
     # Configuração estática para definir os alvos (targets) para raspagem.
     static_configs:
-      # Lista de alvos para o job 'node-exporter'. Aqui, o node-exporter está sendo raspado em 'node-exporter:9100'.
-      - targets: ['<ip_do_seu_host>:8090']`
+      - targets: ["localhost:8090"]
